@@ -158,6 +158,13 @@
   font-size: 1.1rem;
 }
 
+.error {
+  text-align: center;
+  padding: 3rem;
+  color: #F44336;
+  font-weight: bold;
+}
+
 .stats-container {
   animation: fadeIn 0.3s ease-in;
 }

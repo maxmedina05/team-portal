@@ -26,6 +26,7 @@ function LiveFeed() {
 
     const interval = setInterval(async () => {
       const newActivities = await fetchFeedActivity()
+
       setActivities(prev => [...newActivities, ...prev].slice(0, 100))
     }, 3000)
 
@@ -62,8 +63,9 @@ function LiveFeed() {
         {activities.length === 0 ? (
           <div className="no-messages">Waiting for activities...</div>
         ) : (
-          activities.map((activity) => (
-            <ActivityCard key={activity.id} activity={activity} />
+          // TODO: this is only temporal as in PROD env we wouldn't have the same key duplicated, but to silent the console while I fix the other issues.
+          activities.map((activity, i) => (
+            <ActivityCard key={`${activity.id}-${i}`} activity={activity} />
           ))
         )}
       </div>

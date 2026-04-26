@@ -16,6 +16,7 @@ interface UserData {
   lastActive: string
 }
 
+
 function UserProfile() {
   const [userData] = useState<UserData>({
     name: 'Alex Johnson',
@@ -28,11 +29,12 @@ function UserProfile() {
   useEffect(() => {
     const loadActivity = async () => {
       const activities = await fetchUserActivity()
-      setRecentActivity(activities)
+      setRecentActivity(activities)  
     }
 
-    loadActivity()
-  })
+      loadActivity()
+
+  }, [])
 
   return (
     <div className="user-profile">
