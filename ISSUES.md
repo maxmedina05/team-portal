@@ -47,5 +47,7 @@ to
             on u1_0.id=a1_0.user_id
 ```
 
+5. mockApi.ts had no HTTP error handling. It would just silently fails, even if I tried doing catch in the component fetching the data it wouldn't go into catch. So, check the response object and check when the response is not ok then I would throw an error.
+
 ### Not a real issue but for a clean and easier debugging.
 1. Fix duplicated key issue in the live activity feed page. Fix was to recreate the id using original id plus a incremental no. not optimal but only needed in test environment like this.

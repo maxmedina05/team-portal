@@ -15,15 +15,30 @@ interface Activity {
 
 export const fetchTeamStats = async (team: string): Promise<TeamStats> => {
   const response = await fetch(`${API_BASE}/teams/${team}/stats`)
-  return response.json()
+  
+  return handleResponse<TeamStats>(response)
 }
 
 export const fetchFeedActivity = async (): Promise<Activity[]> => {
   const response = await fetch(`${API_BASE}/activities/feed`)
-  return response.json()
+  
+  return handleResponse<Activity[]>(response)
 }
 
 export const fetchUserActivity = async (): Promise<Activity[]> => {
   const response = await fetch(`${API_BASE}/users/1/activities`)
-  return response.json()
+  
+  return handleResponse<Activity[]>(response)
+}
+
+// private
+async function handleResponse<T>(response: Response): Promise<T> {
+  const data = await response.json().catch(() => null)
+
+  if(!response.ok) {
+    const errorMessage = data?.error ?? response.statusText
+    throw new Error(`${errorMessage}`)
+  }
+
+  return data as T
 }

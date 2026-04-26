@@ -9,20 +9,27 @@ interface TeamStats {
   efficiency: number
 }
 
+
+
 function Dashboard() {
   const [selectedTeam, setSelectedTeam] = useState<string>(() => {
     return sessionStorage.getItem('selectedTeam') || 'engineering'
   })
   const [stats, setStats] = useState<TeamStats | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
   const [autoRefresh, setAutoRefresh] = useState<boolean>(false)
+
 
   useEffect(() => {
     setLoading(true)
+    // setError(null)
     fetchTeamStats(selectedTeam)
     .then(data => {
       setStats(data)
-      setLoading(false)
+    })
+    .catch(e => {
+      setError(e?.message || 'There was an error fetching the data')
     })
     .finally(() =>  {
       setLoading(false)
@@ -81,6 +88,10 @@ function Dashboard() {
           </button>
         </div>
       </div>
+
+      {error && (
+        <div className='error'>{error}</div>
+      )}
 
       {autoRefresh && (
         <div className="auto-refresh-indicator">
