@@ -23,13 +23,14 @@ function Dashboard() {
 
   useEffect(() => {
     setLoading(true)
-    // setError(null)
+    setError(null)
     fetchTeamStats(selectedTeam)
     .then(data => {
       setStats(data)
     })
     .catch(e => {
       setError(e?.message || 'There was an error fetching the data')
+      setStats(null)
     })
     .finally(() =>  {
       setLoading(false)
