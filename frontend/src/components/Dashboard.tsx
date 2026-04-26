@@ -36,6 +36,8 @@ function Dashboard() {
       })
     }, 10000)
 
+    return () => clearInterval(interval)
+
   }, [autoRefresh, selectedTeam])
 
   const handleTeamChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
