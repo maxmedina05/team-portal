@@ -19,8 +19,12 @@ function Dashboard() {
 
   useEffect(() => {
     setLoading(true)
-    fetchTeamStats(selectedTeam).then(data => {
+    fetchTeamStats(selectedTeam)
+    .then(data => {
       setStats(data)
+      setLoading(false)
+    })
+    .finally(() =>  {
       setLoading(false)
     })
   }, [selectedTeam])
